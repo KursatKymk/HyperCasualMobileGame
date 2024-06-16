@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 887804474779109799}
   - component: {fileID: 4383410611008537828}
-  - component: {fileID: 4530804875512798336}
   - component: {fileID: 2747334021383242743}
+  - component: {fileID: 2772127531230258204}
   m_Layer: 0
   m_Name: Hedef
   m_TagString: Target
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.64, y: 0.76, z: 0}
-  m_LocalScale: {x: 0.17138672, y: 0.13442871, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.2353077, z: 1.7504275}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4530804875512798336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5406363175866802207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20204f29792a43e44abbf826713b06d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &2747334021383242743
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,6 +118,18 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2.0000002}
+  m_Offset: {x: 0.056874853, y: -0.055454623}
+  m_Size: {x: 3.6162453, y: 10.358413}
   m_Direction: 0
+--- !u!114 &2772127531230258204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5406363175866802207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8da49abce8e854494941924af179a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -14,6 +14,12 @@ public class Target : MonoBehaviour
             // Hedefi yok et
             Destroy(gameObject);
 
+            Planet planet = FindObjectOfType<Planet>();
+            if( planet != null)
+            {
+                planet.ReverseRotation();
+            }
+
             // Yeni hedefi oluþtur
             TargetSpawner.Instance.SpawnTarget();
         }

@@ -9,6 +9,7 @@ public class TargetSpawner : MonoBehaviour
     public GameObject targetPrefab; // Oluþturulacak hedef prefabý
     public Transform centerPoint; // Çemberin merkezi
     public float orbitRadius = 5f; // Yörünge yarýçapý
+    public Transform planet; // Planet GameObject'in Transform referansý
 
     private GameObject currentTarget; // Mevcut hedef referansý
 
@@ -44,7 +45,7 @@ public class TargetSpawner : MonoBehaviour
         float angle = Mathf.Atan2(directionFromCenter.y, directionFromCenter.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); // 90 derece çýkarmamýzýn sebebi, karakterin yukarýya bakmasýný saðlamak
 
-        // Hedefi oluþtur ve mevcut hedef olarak ayarla
-        currentTarget = Instantiate(targetPrefab, spawnPosition, rotation);
+        // Hedefi oluþtur ve Planet GameObject'in child'ý olarak ayarla
+        currentTarget = Instantiate(targetPrefab, spawnPosition, rotation, planet);
     }
 }
