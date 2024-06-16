@@ -39,9 +39,9 @@ public class TargetSpawner : MonoBehaviour
         float y = centerPoint.position.y + Mathf.Sin(radians) * orbitRadius;
         Vector3 spawnPosition = new Vector3(x, y, 0f); // Z eksenini 0 yaparak 2D olmasýný saðlýyoruz
 
-        // Karakterin merkezine bakmasýný saðla
-        Vector3 directionToCenter = centerPoint.position - spawnPosition;
-        float angle = Mathf.Atan2(directionToCenter.y, directionToCenter.x) * Mathf.Rad2Deg;
+        // Karakterin merkezinin tam tersine bakmasýný saðla
+        Vector3 directionFromCenter = spawnPosition - centerPoint.position;
+        float angle = Mathf.Atan2(directionFromCenter.y, directionFromCenter.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); // 90 derece çýkarmamýzýn sebebi, karakterin yukarýya bakmasýný saðlamak
 
         // Hedefi oluþtur ve mevcut hedef olarak ayarla
