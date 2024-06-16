@@ -10,7 +10,7 @@ public class Planet : MonoBehaviour
     private void Update()
     {
         float currentRotationSpeed = reverseRotation ? -rotationSpeed : rotationSpeed;
-        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.forward * currentRotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime); // Mermiyi yukarý doðru hareket ettir
+        transform.Translate(Vector3.down * speed * Time.deltaTime); // Mermiyi yukarý doðru hareket ettir
     }
 
     void OnBecameInvisible()

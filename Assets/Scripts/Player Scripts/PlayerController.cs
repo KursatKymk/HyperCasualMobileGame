@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         transform.position = newPosition;
 
         // Karakterin merkezine bakmasýný saðla
-        Vector3 directionToCenter = centerPoint.position - transform.position;
+        Vector3 directionToCenter = transform.position - centerPoint.position;
         float angle = Mathf.Atan2(directionToCenter.y, directionToCenter.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); // 90 derece çýkarmamýzýn sebebi, karakterin yukarýya bakmasýný saðlamak
     }
