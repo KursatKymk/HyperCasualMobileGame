@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Target : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class Target : MonoBehaviour
 
             // Hedefi yok et
             Destroy(gameObject);
+
+            //score arttýr
+            ScoreManager.Instance.AddScore(1);
 
             Planet planet = FindObjectOfType<Planet>();
             if( planet != null)
