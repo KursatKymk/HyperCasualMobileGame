@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    public static GameOverManager Instance {  get; private set; }
+    public static GameOverManager Instance { get; private set; }
+
+    public GameObject background; // Background GameObject referansý
 
     private void Awake()
     {
@@ -19,11 +21,16 @@ public class GameOverManager : MonoBehaviour
     {
         Debug.Log("Game Over!!");
 
-        if(PlayerController.Instance != null)
+        // Game Over olduðunda Background GameObject'ini aktifleþtir
+        if (background != null)
+        {
+            background.SetActive(true);
+        }
+
+        // PlayerController.Instance üzerinden SetGameOver metodunu çaðýr
+        if (PlayerController.Instance != null)
         {
             PlayerController.Instance.SetGameOver();
         }
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

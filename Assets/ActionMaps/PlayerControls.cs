@@ -29,7 +29,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""a54ed660-221b-4b3c-beda-c6f20e7f70ee"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -70,7 +70,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
+                    ""name"": ""positive"",
                     ""id"": ""a8ee5ce6-c0b9-4898-a749-e9b0b56928bc"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
@@ -81,7 +81,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
+                    ""name"": ""negative"",
                     ""id"": ""3d471a1c-b12a-484e-871f-333dedc75562"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
