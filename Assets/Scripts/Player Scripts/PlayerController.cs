@@ -84,13 +84,4 @@ public class PlayerController : MonoBehaviour
     {
         isGameOver = true;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Meteor"))
-        {
-            SetGameOver();
-            Debug.Log("asdasdas");
-        }
-    }
 }

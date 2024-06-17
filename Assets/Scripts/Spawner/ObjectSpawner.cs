@@ -23,6 +23,12 @@ public class ObjectSpawner : MonoBehaviour
     {
         while (isSpawning)
         {
+            if (GameOverManager.Instance.isGameOver)
+            {
+                isSpawning = false;
+                yield break;
+            }
+
             // Meteor nesnesi oluþtur
             GameObject newObject = Instantiate(meteorPrefab, GetRandomSpawnPosition(), Quaternion.identity);
 

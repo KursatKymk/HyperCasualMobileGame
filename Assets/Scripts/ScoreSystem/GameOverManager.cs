@@ -9,6 +9,8 @@ public class GameOverManager : MonoBehaviour
 
     public GameObject background; // Background GameObject referansý
 
+    public bool isGameOver = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -20,6 +22,8 @@ public class GameOverManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game Over!!");
+
+        isGameOver = true;
 
         // Game Over olduðunda Background GameObject'ini aktifleþtir
         if (background != null)
