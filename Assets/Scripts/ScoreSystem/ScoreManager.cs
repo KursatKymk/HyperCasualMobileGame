@@ -14,8 +14,8 @@ public class ScoreManager : MonoBehaviour
     {
         if(Instance == null)
             Instance = this;
-        //else
-          //  Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     private void Start()
@@ -27,16 +27,31 @@ public class ScoreManager : MonoBehaviour
     {
         score += value;
         UpdateScoreText();
+        CheckGameOver();
     }
 
     public void RemoveScore(int value)
     {
         score -= value;
         UpdateScoreText();
+        CheckGameOver();
     }
 
     private void UpdateScoreText()
     {
         scoreText.text = score.ToString();
+    }
+
+    private void CheckGameOver()
+    {
+        if(score < 0)
+        {
+            GameOverManager.Instance.GameOver();
+        }
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }

@@ -1,31 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public static PlayerController Instance { get; private set; }
+
     public Transform centerPoint;
     [SerializeField] private float orbitRadius = 5f;
     [SerializeField] private float orbitSpeed = 50f;
 
     private float currentAngle = 0f;
+    private bool isGameOver = false;
 
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
 
+    private bool moveRight = false;
+    private bool moveLeft = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Update()
     {
-        Movement();
-        Shoot();    
+        if (!isGameOver)
+        {
+            Movement();
+            Shoot();
+        }
     }
 
     private void Movement()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || moveRight)
         {
             currentAngle -= orbitSpeed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow) || moveLeft)
         {
             currentAngle += orbitSpeed * Time.deltaTime;
         }
@@ -49,7 +71,41 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(bulletPrefab,bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            if (GameObject.FindGameObjectWithTag("Bullet") == null)
+            {
+                Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            }
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // Týklanan butona göre hareketi baþlat
+        if (eventData.pointerEnter.CompareTag("RightButton"))
+        {
+            moveRight = true;
+        }
+        else if (eventData.pointerEnter.CompareTag("LeftButton"))
+        {
+            moveLeft = true;
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        // Týklanan butona göre hareketi durdur
+        if (eventData.pointerEnter.CompareTag("RightButton"))
+        {
+            moveRight = false;
+        }
+        else if (eventData.pointerEnter.CompareTag("LeftButton"))
+        {
+            moveLeft = false;
+        }
+    }
+
+    public void SetGameOver()
+    {
+        isGameOver = true;
     }
 }

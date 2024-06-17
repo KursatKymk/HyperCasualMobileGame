@@ -21,8 +21,6 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject); // Mermiyi yok et
             Destroy(other.gameObject); // Hedefi yok et
-            // Yeni hedef oluþturma iþlemleri buraya eklenebilir
-            // Örneðin, Target script'indeki SpawnNewTarget fonksiyonu çaðrýlabilir
         }
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - Target
+  - LeftButton
+  - RightButton
   layers:
   - Default
   - TransparentFX
