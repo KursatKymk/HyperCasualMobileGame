@@ -1,23 +1,23 @@
 {
-    "name": "PlayerController",
+    "name": "PlayerControls",
     "maps": [
         {
-            "name": "PlayerControls",
-            "id": "b811b931-fa69-41f8-b4c0-daf7b71ec295",
+            "name": "Controls",
+            "id": "e90b6a69-5a7e-4f9c-b075-0ff3552bc59b",
             "actions": [
                 {
-                    "name": "MoveRight",
+                    "name": "Move",
                     "type": "Button",
-                    "id": "6b3e0ebb-8945-480d-8dd2-cf5033cc9bc5",
+                    "id": "a54ed660-221b-4b3c-beda-c6f20e7f70ee",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MoveLeft",
+                    "name": "Fire",
                     "type": "Button",
-                    "id": "7aeeed97-2e51-403d-b367-3798895fe3e1",
+                    "id": "dd23dc50-7718-4091-bcef-b1ac1e030d74",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -27,47 +27,47 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "d58a97e7-62d7-49cb-a953-f8d7b591e7a3",
-                    "path": "<Keyboard>/rightArrow",
+                    "id": "ec6fd36f-aac6-45fb-bd6c-be5484bc2def",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveRight",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "e4785dac-70b8-4b35-acd6-b58614726528",
-                    "path": "<Touchscreen>/Press",
+                    "name": "1D Axis",
+                    "id": "36848a8d-c505-4886-970e-e6c0a78851e5",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveRight",
-                    "isComposite": false,
+                    "action": "Move",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "ff8f0f6a-9850-4a3c-83e6-71d4e3345a6a",
+                    "name": "negative",
+                    "id": "a8ee5ce6-c0b9-4898-a749-e9b0b56928bc",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveLeft",
+                    "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "6c1a8d3a-a36c-48d8-807d-86e1e0029370",
-                    "path": "<Touchscreen>/Press",
+                    "name": "positive",
+                    "id": "3d471a1c-b12a-484e-871f-333dedc75562",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveLeft",
+                    "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 }
             ]
         }

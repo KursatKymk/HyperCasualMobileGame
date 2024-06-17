@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
+
+    PlayerControls controls;
+    private float direction = 0;
 
     public Transform centerPoint;
     [SerializeField] private float orbitRadius = 5f;
@@ -18,11 +21,16 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
 
-    private bool moveRight = false;
-    private bool moveLeft = false;
-
     private void Awake()
     {
+        controls = new PlayerControls();
+        controls.Enable();
+
+        controls.Controls.Move.performed += ctx =>
+        {
+            direction = ctx.ReadValue<float>();
+        };
+
         if (Instance == null)
         {
             Instance = this;
@@ -38,20 +46,16 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if (!isGameOver)
         {
             Movement();
-            Shoot();
+            controls.Controls.Fire.performed += ctx =>
+            {
+                Shoot();
+            };
         }
     }
 
     private void Movement()
     {
-        if (Input.GetKey(KeyCode.RightArrow) || moveRight)
-        {
-            currentAngle -= orbitSpeed * Time.deltaTime;
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow) || moveLeft)
-        {
-            currentAngle += orbitSpeed * Time.deltaTime;
-        }
+        currentAngle += direction * orbitSpeed * Time.deltaTime;
 
         float radians = currentAngle * Mathf.Deg2Rad;
 
@@ -70,38 +74,9 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (GameObject.FindGameObjectWithTag("Bullet") == null)
         {
-            if (GameObject.FindGameObjectWithTag("Bullet") == null)
-            {
-                Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-            }
-        }
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        // Týklanan butona göre hareketi baþlat
-        if (eventData.pointerEnter.CompareTag("RightButton"))
-        {
-            moveRight = true;
-        }
-        else if (eventData.pointerEnter.CompareTag("LeftButton"))
-        {
-            moveLeft = true;
-        }
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        // Týklanan butona göre hareketi durdur
-        if (eventData.pointerEnter.CompareTag("RightButton"))
-        {
-            moveRight = false;
-        }
-        else if (eventData.pointerEnter.CompareTag("LeftButton"))
-        {
-            moveLeft = false;
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         }
     }
 
