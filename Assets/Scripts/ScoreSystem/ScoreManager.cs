@@ -29,6 +29,12 @@ public class ScoreManager : MonoBehaviour
         UpdateScoreText();
     }
 
+    public void RemoveScore(int value)
+    {
+        score -= value;
+        UpdateScoreText();
+    }
+
     private void UpdateScoreText()
     {
         scoreText.text = score.ToString();

@@ -18,6 +18,7 @@ public class Planet : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
+            ScoreManager.Instance.RemoveScore(1);
             reverseRotation = true;
         }
     }
