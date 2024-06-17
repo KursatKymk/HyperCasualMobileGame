@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
+    public static Planet Instance {  get; private set; }  
+
     [SerializeField] private float rotationSpeed = 50f;
     private bool reverseRotation = false;
 
+    private bool isGameOver = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     private void Update()
     {
-        float currentRotationSpeed = reverseRotation ? -rotationSpeed : rotationSpeed;
-        transform.Rotate(Vector3.forward * currentRotationSpeed * Time.deltaTime);
+        if (!isGameOver)
+        {
+            float currentRotationSpeed = reverseRotation ? -rotationSpeed : rotationSpeed;
+            transform.Rotate(Vector3.forward * currentRotationSpeed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,5 +41,10 @@ public class Planet : MonoBehaviour
     public void ReverseRotation()
     {
         reverseRotation = !reverseRotation;
+    }
+
+    public void SetGameOverPlanet()
+    {
+        isGameOver = true;
     }
 }

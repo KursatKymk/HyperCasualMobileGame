@@ -25,6 +25,8 @@ public class GameOverManager : MonoBehaviour
         if (background != null)
         {
             background.SetActive(true);
+            PlayerController.Instance.SetGameOver();
+            Planet.Instance.SetGameOverPlanet();
         }
 
         // PlayerController.Instance üzerinden SetGameOver metodunu çaðýr
