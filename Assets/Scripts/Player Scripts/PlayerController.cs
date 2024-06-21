@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
                 Shoot();
             };
         }
+        else if (isGameOver)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Movement()

@@ -11,6 +11,12 @@ public class Planet : MonoBehaviour
 
     private bool isGameOver = false;
 
+    //New Mechanic That Shoots projectiles at the player.
+    [SerializeField] private GameObject hostileLaser;
+    [SerializeField] private GameObject player;
+    private float spawnInterval = 5f;
+    [SerializeField] private float laserSpeed = 5f;
+
     private void Awake()
     {
         if (Instance == null)
@@ -19,12 +25,19 @@ public class Planet : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        StartCoroutine(ShootAtPlayerCoroutine());
+    }
+
     private void Update()
     {
         if (!isGameOver)
         {
             float currentRotationSpeed = reverseRotation ? -rotationSpeed : rotationSpeed;
             transform.Rotate(Vector3.forward * currentRotationSpeed * Time.deltaTime);
+
+            
         }
     }
 
@@ -46,5 +59,42 @@ public class Planet : MonoBehaviour
     public void SetGameOverPlanet()
     {
         isGameOver = true;
+    }
+
+    private IEnumerator ShootAtPlayerCoroutine()
+    {
+        while (!isGameOver)
+        {
+            ShootAtPlayer(hostileLaser, player);
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    private void ShootAtPlayer(GameObject Laser, GameObject Player)
+    {
+        if (Player == null)
+        {
+            Debug.LogWarning("Player Object is not Assigned");
+            return;
+        }
+
+        Vector3 playerPosition = Player.transform.position;
+        Vector3 direction = (playerPosition - transform.position).normalized;
+
+        GameObject laserInstance = Instantiate(Laser, transform.position, Quaternion.identity);
+
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        laserInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        Rigidbody2D laserRB = laserInstance.GetComponent<Rigidbody2D>();
+
+        if(laserRB != null)
+        {
+            laserRB.velocity = direction * laserSpeed * Time.deltaTime;
+        }
+        else
+        {
+            Debug.LogWarning("The Laser Does Not Have a RigidbodyComponent");
+        }
     }
 }
