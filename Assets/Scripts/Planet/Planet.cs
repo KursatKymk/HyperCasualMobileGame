@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
-    public static Planet Instance {  get; private set; }  
+    public static Planet Instance { get; private set; }
 
     [SerializeField] private float rotationSpeed = 50f;
     private bool reverseRotation = false;
 
     private bool isGameOver = false;
+    private int gameScore;
 
-    //New Mechanic That Shoots projectiles at the player.
+    // New Mechanic That Shoots projectiles at the player.
     [SerializeField] private GameObject hostileLaser;
     [SerializeField] private GameObject player;
     private float spawnInterval = 5f;
     [SerializeField] private float laserSpeed = 5f;
+
+    private Coroutine shootingCoroutine;
 
     private void Awake()
     {
@@ -27,17 +30,28 @@ public class Planet : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ShootAtPlayerCoroutine());
+        // Initially, do not start shooting coroutine
     }
 
     private void Update()
     {
-        if (!isGameOver)
+        gameScore = ScoreManager.Instance.GetScore(); // Gets the score from the score manager.
+
+        if (!isGameOver && gameScore < 10)
         {
             float currentRotationSpeed = reverseRotation ? -rotationSpeed : rotationSpeed;
             transform.Rotate(Vector3.forward * currentRotationSpeed * Time.deltaTime);
+        }
+        else if (!isGameOver && gameScore >= 10)
+        {
+            rotationSpeed = 100f;
+            float currentRotationSpeed = reverseRotation ? -rotationSpeed : rotationSpeed;
+            transform.Rotate(Vector3.forward * currentRotationSpeed * Time.deltaTime);
+        }
 
-            
+        if (!isGameOver && gameScore > 5 && shootingCoroutine == null)
+        {
+            shootingCoroutine = StartCoroutine(ShootAtPlayerCoroutine());
         }
     }
 
@@ -59,6 +73,11 @@ public class Planet : MonoBehaviour
     public void SetGameOverPlanet()
     {
         isGameOver = true;
+
+        if (shootingCoroutine != null)
+        {
+            StopCoroutine(shootingCoroutine);
+        }
     }
 
     private IEnumerator ShootAtPlayerCoroutine()
@@ -81,16 +100,16 @@ public class Planet : MonoBehaviour
         Vector3 playerPosition = Player.transform.position;
         Vector3 direction = (playerPosition - transform.position).normalized;
 
-        GameObject laserInstance = Instantiate(Laser, transform.position, Quaternion.identity);
+        // Calculate the angle towards the player and adjust for 90-degree rotation
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
 
-        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        laserInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        GameObject laserInstance = Instantiate(Laser, transform.position, Quaternion.Euler(0, 0, angle));
 
         Rigidbody2D laserRB = laserInstance.GetComponent<Rigidbody2D>();
 
-        if(laserRB != null)
+        if (laserRB != null)
         {
-            laserRB.velocity = direction * laserSpeed * Time.deltaTime;
+            laserRB.velocity = direction * laserSpeed;
         }
         else
         {

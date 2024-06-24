@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
 
+    private AudioSource laserSound;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        laserSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -81,6 +85,15 @@ public class PlayerController : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Bullet") == null)
         {
             Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+            if(laserSound != null)
+            {
+                laserSound.Play();
+            }
+            else
+            {
+                Debug.LogWarning("AudioSource Component is missing on the player");
+            }
         }
     }
 
